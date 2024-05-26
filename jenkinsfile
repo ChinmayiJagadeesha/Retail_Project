@@ -1,0 +1,46 @@
+pipeline {
+    agent any
+
+    environment {
+        // Ensures that the PATH includes the directory where python is installed
+        PATH = "/usr/bin:${env.PATH}"
+    }
+
+    stages {
+        stage('Build') {
+            steps {
+                // Checkout code from the repository
+                git 'https://github.com/your-repo/your-project.git'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                // Verify Python installation
+                sh 'python --version'
+                // Optionally install dependencies
+                // sh 'pip install -r requirements.txt'
+            }
+        }
+
+        stage('Package') {
+            steps {
+                // Run your Python script
+                sh 'python your_script.py'
+            }
+
+        stage('deploy') {
+            steps {
+                // Run your Python script
+                sh 'python your_script.py'
+            }
+        }
+    }
+
+    post {
+        always {
+            // Clean up workspace after build
+            cleanWs()
+        }
+    }
+}
